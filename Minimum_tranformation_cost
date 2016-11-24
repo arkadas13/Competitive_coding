@@ -1,0 +1,59 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int t=sc.nextInt();
+        String s1,s2;
+        int arr1[]=new int[26];//fake
+        int arr2[]=new int[26];//orginal
+        int arr3[]=new int[3];//cost
+        int sum,x,y,i,j;
+        for(i=0;i<t;i++){
+            sc.nextLine();
+            x=0;y=0;sum=0;
+            for(j=0;j<26;j++){
+                arr1[j]=0;
+                arr2[j]=0;
+            }
+            s1=sc.nextLine();
+            s2=sc.nextLine();
+            for(j=0;j<3;j++)
+                arr3[j]=sc.nextInt();
+            int len1=s1.length(); int len2=s2.length();
+            for(j=0;j<len1;j++){
+                arr1[s1.charAt(j)-97]++;
+            }
+            for(j=0;j<len2;j++){
+                arr2[s2.charAt(j)-97]++;
+            }
+            for(j=0;j<26;j++){
+                if(arr1[j]>arr2[j]){
+                    x+=(arr1[j]-arr2[j]);
+                }
+                else{
+                    y+=(arr2[j]-arr1[j]);
+                }
+                //System.out.printf("%d %d\n",arr1[j],arr2[j]);
+            }
+            //System.out.printf("@%d @%d\n",x,y);
+            int cost=Math.min(arr3[0]+arr3[1],arr3[2]);
+            if(len1>len2){
+                x-=(len1-len2);
+                sum+=(len1-len2)*arr3[0];
+            }
+            else{
+                y-=(len2-len1);
+                sum+=(len2-len1)*arr3[1];
+            }
+            //System.out.printf("%d %d\n",x,y);
+            sum+=x*cost;
+            System.out.println(sum);
+        }
+    }
+}
